@@ -5,7 +5,13 @@ dotenv.config();
 
 const createGTT = async (compdetail, userdetail) => {
     //console.log(user, quantity, company, GTTPrice);
-  const browser = await puppeteer.launch({ headless: true });
+  //const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ],
+  });
   const page = await browser.newPage();
   await page.goto(process.env.BASE_URL);
   await page.waitFor(500);
