@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const createGTT = async (compdetail, userdetail) => {
+    console.log("inside createGTT method");
     //console.log(user, quantity, company, GTTPrice);
   //const browser = await puppeteer.launch({ headless: true });
   const browser = await puppeteer.launch({
