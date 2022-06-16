@@ -19,11 +19,14 @@ app.get("/",(req, res) => {
 
 app.post("/setgtt", (req, res) => {
     let { user, quantity, company, GTTPrice } = req.body;
-    console.log("request landed on API");
+    console.log("request landed on API"," and user is===",user," and quantity==",quantity," and company=",company," and GTTPrice==",GTTPrice);
     console.log("request body===",JSON.stringify(req.body));
     //console.log(user, quantity, company, GTTPrice);
     //let { userid, pass, pin } = JSON.parse(process.env.USER_LIST)[user];
     //console.log(JSON.parse(process.env.USER_LIST)[user]);
+    console.log("check condition1===",!_.isEmpty(req.body));
+    console.log("check condition2===",!_.isEmpty(JSON.parse(process.env.USER_LIST)[user]));
+    console.log("user list===",JSON.parse(process.env.USER_LIST)[user]);
     if(!_.isEmpty(req.body) && !_.isEmpty(JSON.parse(process.env.USER_LIST)[user])){
         console.log("GTT execution will be triggered");
         createGTT(req.body, JSON.parse(process.env.USER_LIST)[user]).then(response => {
