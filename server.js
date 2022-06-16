@@ -27,11 +27,11 @@ app.post("/setgtt", (req, res) => {
     //let { userid, pass, pin } = JSON.parse(process.env.USER_LIST)[user];
     //console.log(JSON.parse(process.env.USER_LIST)[user]);
     console.log("check condition1===",!_.isEmpty(req.body));
-    console.log("check condition2===",!_.isEmpty(JSON.parse(process.env.USER_LIST)[user]));
-    console.log("user list===",JSON.parse(process.env.USER_LIST)[user]);
-    if(!_.isEmpty(req.body) && !_.isEmpty(JSON.parse(process.env.USER_LIST)[user])){
+    console.log("check condition2===",!_.isEmpty(JSON.parse(process.env.USER_LIST)[parseInt(user)]));
+    console.log("user list===",JSON.parse(process.env.USER_LIST)[parseInt(user)]);
+    if(!_.isEmpty(req.body) && !_.isEmpty(JSON.parse(process.env.USER_LIST)[parseInt(user)])){
         console.log("GTT execution will be triggered");
-        createGTT(req.body, JSON.parse(process.env.USER_LIST)[user]).then(response => {
+        createGTT(req.body, JSON.parse(process.env.USER_LIST)[parseInt(user)]).then(response => {
             res.send(response); 
         })
     }else{
