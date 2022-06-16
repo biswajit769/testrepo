@@ -19,6 +19,8 @@ app.get("/",(req, res) => {
 
 app.post("/setgtt", (req, res) => {
     let { user, quantity, company, GTTPrice } = req.body;
+    req.body['user'] = parseInt(user);
+    req.body['quantity'] = parseInt(quantity);
     console.log("request landed on API"," and user is===",user," and quantity==",quantity," and company=",company," and GTTPrice==",GTTPrice);
     console.log("request body===",JSON.stringify(req.body));
     //console.log(user, quantity, company, GTTPrice);
