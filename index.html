@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Uploading with Multer</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
+  <style>
+    input[type=file],
+    select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button[type=submit] {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+
+    div {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    .styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #fff;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+.styled-table tbody tr.fail {
+  background: red;
+    color: #fff;
+}
+  </style>
+  <script>
+    $(document).ready(function() {
+      $("#btnExport").click(function() {
+        let table = document.getElementsByTagName("table");
+        TableToExcel.convert(table[0], { // html code may contain multiple tables so here we are refering to 1st table tag
+           name: `export.xlsx`, // fileName you could use any name
+           sheet: {
+              name: 'Sheet 1' // sheetName
+           }
+        });
+    });
+      $("#program-list").hide();
+      $("#btnExport").hide();
+       $('#uploadForm').submit(function() {
+          $("#status").empty().text("We are processing files please wait...");
+          $(this).ajaxSubmit({
+  
+              error: function(xhr) {
+          status('Error: ' + xhr.status);
+              },
+  
+              success: function(response) {
+  //               $.get("/process", function(data, status){
+  //   alert("Data: " + data + "\nStatus: " + status);
+  // });
+                    // $.post("/process",
+                    // {
+                    //   processedfiles: response
+                    // },
+                    // function(data, status){
+                    // alert("Data: " + data + "\nStatus: " + status);
+                    // });
+          //       $("#program-list").show();
+          //       $("#btnExport").show();
+          // $("#status").empty().text(response);
+          // $("#program-list tbody").empty();
+          // let programlist = '';
+          // $.each(response.listofupload.data, function (key, value) {
+          //   console.log("value==",value);
+          //   programlist += `<tr class=${value.fstatus}>`;
+          //   programlist += `<td>${value.invoice}</td>`;
+          //   programlist += `<td>${value.applicationid}</td>`;
+          //   programlist += `<td>${value.fstatus}</td>`;
+          //   programlist += `<td>${value.errormsg}</td>`;
+          //   programlist += '</tr>';
+          // });
+          // $('#program-list tbody').append(programlist);
+          //         console.log(response);
+              }
+      });
+          //Very important line, it disable the page refresh.
+      return false;
+      });    
+  });
+  
+  </script>
+</head>
+
+<body>
+
+  <div>
+
+    <!--  SINGLE FILE -->
+    <form action="/uploadfile" enctype="multipart/form-data" method="POST" id="uploadForm">
+      <input type="file" name="myFile" />
+      <input type="submit" value="Upload a file" />
+    </form>
+
+
+
+    <hr>
+
+    <span id = "status"></span>
+
+    <table class="styled-table" id='program-list'>
+      <thead>
+          <tr>
+              <th>INVOICE</th>
+              <th>Customer ID</th>
+              <th>Upload Status</th>
+              <th>Message</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>Dom</td>
+              <td>6000</td>
+              <td>6000</td>
+              <td>6000</td>
+          </tr>
+          <tr class="active-row">
+              <td>Melissa</td>
+              <td>5150</td>
+              <td>5150</td>
+              <td>6000</td>
+          </tr>
+          <!-- and so on... -->
+      </tbody>
+  </table>
+  <button id="btnExport">EXPORT REPORT</button>
+
+  </div>
+
+</body>
+
+</html>

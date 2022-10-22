@@ -1,5 +1,5 @@
 module.exports = Object.freeze({
-    USERNAME_SELECTOR: '#userid',
+    USERNAME_SELECTOR: '#mat-input-0',
     PASSWORD_SELECTOR: '#password',
     SUBMIT_BUTTON_SELECTOR: '.button-orange.wide',
     PIN_INPUT_SELECTOR: '#pin',
